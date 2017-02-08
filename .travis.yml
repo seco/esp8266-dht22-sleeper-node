@@ -6,7 +6,7 @@ before_install:
   - export DISPLAY=:1.0
   - wget http://downloads.arduino.cc/arduino-1.8.0-linux64.tar.xz
   - tar xf arduino-1.8.0-linux64.tar.xz
-  - sudo mv arduino-1.8.0 $HOME/arduino_ide
+  - mv arduino-1.8.0 $HOME/arduino_ide
   - EXPORT ARDUINO_HOME="$HOME/arduino_ide"
   # Make sure the Arduino command is added to the path
   - EXPORT PATH="$HOME/arduino_ide:$PATH"
