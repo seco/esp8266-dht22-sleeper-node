@@ -10,7 +10,7 @@ before_install:
   # Make sure the Arduino command is added to the path
   - export PATH="$HOME/arduino_ide:$PATH"
   - export ARDUINO_HOME="$HOME/arduino_ide"
-  - export ARDUINO_LIBS="$ARDUIN_HOME/libraries"
+  - export ARDUINO_LIBS="$ARDUINO_HOME/libraries"
 install:
 #  - ln -s $PWD /usr/local/share/arduino/libraries/WiFiManager
 # boards manager not working on 1.6.7 - 1.6.8
