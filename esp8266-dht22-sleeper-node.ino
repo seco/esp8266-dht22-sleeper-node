@@ -1,9 +1,9 @@
 // Initial ino file to pass the travis ci build step
 
-setup() {
+void setup() {
 
 }
 
-loop() {
+void loop() {
 
 }
