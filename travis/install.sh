@@ -19,12 +19,10 @@ export AUX_PLATFORMS='declare -A aux_platforms=( [trinket]="adafruit:avr:trinket
 sleep 3
 export DISPLAY=:1.0
 
-# download and install arduino 1.8.1
-wget https://downloads.arduino.cc/arduino-1.8.1-linux64.tar.xz
-tar xf arduino-1.8.1-linux64.tar.xz
-mv arduino-1.8.1 $HOME/arduino_ide
-wget https://raw.githubusercontent.com/thomasvnl/esp8266-dht22-sleeper-node/master/travis/arduino-headless.sh -O $HOME/arduino_ide/arduino-headless.sh
-chmod +x $HOME/arduino_ide/arduino-headless.sh
+# download and install arduino 1.6.5
+wget https://downloads.arduino.cc/arduino-1.6.5-linux64.tar.xz
+tar xf arduino-1.6.5-linux64.tar.xz
+mv arduino-1.6.5 $HOME/arduino_ide
 
 # move this library to the arduino libraries folder
 ln -s $PWD $HOME/arduino_ide/libraries/Adafruit_Test_Library
