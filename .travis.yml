@@ -3,7 +3,7 @@ sudo: false
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/thomasvnl/esp8266-dht22-sleeper-node/master/travis/install.sh)
 install:
-  - arduino --install-library "DHT sensor library"
+  - arduino --install-library "Adafruit Unified Sensor,DHT sensor library"
 script:
   - build_platform esp8266
 notifications:
