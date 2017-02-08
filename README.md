@@ -10,6 +10,6 @@ Make sure you have installed the ESP8266 Arduino core from https://github.com/es
 
 ### Libraries
 
-- Adafruit's Arduino library for the DHT sensors: https://github.com/adafruit/DHT-sensor-library
+- Mark Ruys' DHT library: https://github.com/markruys/arduino-DHT.git
 - Tzapu's WiFiManager: https://github.com/tzapu/WiFiManager
 - More to come during development
