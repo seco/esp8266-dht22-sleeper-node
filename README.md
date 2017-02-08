@@ -1,4 +1,4 @@
-# esp8266-dht22-sleeper-node
+# esp8266-dht22-sleeper-node [![Build Status](https://travis-ci.org/thomasvnl/esp8266-dht22-sleeper-node.svg?branch=master)](https://travis-ci.org/thomasvnl/esp8266-dht22-sleeper-node)
 
 Software for an ESP8266 WiFi module to read data from a DHT22 sensor module, do something with it like publishing it to a server, and then going into DeepSleep.
 
