@@ -6,11 +6,11 @@ before_install:
   - export DISPLAY=:1.0
   - wget http://downloads.arduino.cc/arduino-1.8.1-linux64.tar.xz
   - tar xf arduino-1.8.1-linux64.tar.xz
-  - mv arduino-1.8.1 $HOME/.arduino15
+  - mv arduino-1.8.1 $HOME/arduino_ide
   # Make sure the Arduino command is added to the path
-  - export PATH="$HOME/.arduino15:$PATH"
-  - export ARDUINO_HOME="$HOME/.arduino15"
+  - export ARDUINO_HOME="$HOME/arduino_ide"
   - export ARDUINO_LIBS="$ARDUINO_HOME/libraries"
+  - export PATH="$ARDUINO_HOME:$PATH"
 install:
 #  - ln -s $PWD /usr/local/share/arduino/libraries/WiFiManager
 # boards manager not working on 1.6.7 - 1.6.8
