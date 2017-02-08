@@ -1,7 +1,8 @@
 language: c
-sudo: false
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/thomasvnl/esp8266-dht22-sleeper-node/master/travis/install.sh)
+install:
+  - sudo pip install esptool
 script:
   - build_platform esp8266
 notifications:
