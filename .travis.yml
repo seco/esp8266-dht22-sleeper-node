@@ -1,32 +1,36 @@
 language: c
+sudo: false
 before_install:
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
   - sleep 3
   - export DISPLAY=:1.0
   - wget http://downloads.arduino.cc/arduino-1.8.0-linux64.tar.xz
   - tar xf arduino-1.8.0-linux64.tar.xz
-  - sudo mv arduino-1.8.0 /usr/local/share/arduino
-  - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
+  - sudo mv arduino-1.8.0 $HOME/arduino_ide
+  - EXPORT ARDUINO_HOME="$HOME/arduino_ide"
+  # Make sure the Arduino command is added to the path
+  - EXPORT PATH="$HOME/arduino_ide:$PATH"
+  - EXPORT ARDUINO_LIBS="$ARDUIN_HOME/libraries"
 install:
 #  - ln -s $PWD /usr/local/share/arduino/libraries/WiFiManager
 # boards manager not working on 1.6.7 - 1.6.8
   - arduino --pref "boardsmanager.additional.urls=http://arduino.esp8266.com/stable/package_esp8266com_index.json" --save-prefs
 # install lib arduino json not working in 1.6.5
 #  - arduino --install-library "ArduinoJson"
-  - git clone https://github.com/adafruit/Adafruit_Sensor.git /usr/local/share/arduino/libraries/Adafruit_Sensor
-  - git clone https://github.com/adafruit/DHT-sensor-library.git /usr/local/share/arduino/libraries/DHT-sensor-library
-  - git clone https://github.com/tzapu/WiFiManager.git /usr/local/share/arduino/libraries/WiFiManager
-  - git clone https://github.com/bblanchon/ArduinoJson /usr/local/share/arduino/libraries/ArduinoJson
-  - sleep 3
+  - git clone https://github.com/adafruit/Adafruit_Sensor.git $ARDUINO_LIBS/Adafruit_Sensor
+  - git clone https://github.com/adafruit/DHT-sensor-library.git $ARDUINO_LIBS/DHT-sensor-library
+  - git clone https://github.com/tzapu/WiFiManager.git $ARDUINO_LIBS/WiFiManager
+  - git clone https://github.com/bblanchon/ArduinoJson $ARDUINO_LIBS/ArduinoJson
   - arduino --install-boards esp8266:esp8266
   - arduino --board esp8266:esp8266:generic --save-prefs
   - arduino --pref "compiler.warning_level=default" --save-prefs
+  - sleep 3
 script:
+  - "echo $ARDUINO_HOME"
+  - "echo $ARDUINO_LIBS"
   - "echo $PWD"
   - "echo $HOME"
   - "ls $PWD"
-  - "ls /usr/local/share/arduino"
-  - "ls /usr/local/share/arduino/libraries"
   - arduino --verify --board esp8266:esp8266:generic $PWD/esp8266-dht22-sleeper-node.ino
 #  - source $TRAVIS_BUILD_DIR/travis/common.sh
 #  - build_examples
