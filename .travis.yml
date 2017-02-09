@@ -27,11 +27,11 @@ install:
   - arduino --pref "compiler.warning_level=default" --save-prefs
   - sleep 3
 script:
-  - "echo $ARDUINO_HOME"
-  - "echo $ARDUINO_LIBS"
-  - "echo $PWD"
-  - "echo $HOME"
-  - "ls $PWD"
+  # - "echo $ARDUINO_HOME"
+  # - "echo $ARDUINO_LIBS"
+  # - "echo $PWD"
+  # - "echo $HOME"
+  # - "ls $PWD"
 # Check for Generic ESP-01 Module
   - echo "Generic ESP-01 Module"
   - arduino --verify --board esp8266:esp8266:generic:FlashSize=512K64 $PWD/esp8266-dht22-sleeper-node.ino
