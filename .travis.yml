@@ -32,7 +32,8 @@ script:
   - "echo $PWD"
   - "echo $HOME"
   - "ls $PWD"
-  - arduino -v --verbose --verify --board esp8266:esp8266:generic $PWD/esp8266-dht22-sleeper-node.ino
+  - arduino --verify --board esp8266:esp8266:generic $PWD/esp8266-dht22-sleeper-node.ino
+#  - arduino -v --verbose --verify --board esp8266:esp8266:generic $PWD/esp8266-dht22-sleeper-node.ino
 #  - source $TRAVIS_BUILD_DIR/travis/common.sh
 #  - build_examples
 #  - "cat $PWD/examples/AutoConnect/AutoConnect.ino"
