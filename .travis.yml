@@ -49,5 +49,7 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 notifications:
   email:
+    recipients:
+      - tverschoof@gmail.com
     on_success: change
     on_failure: change
