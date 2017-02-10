@@ -14,17 +14,17 @@ float humidity;
 unsigned long prevMillis = 0;
 
 void serve_root() {
-  String contents = "ESP8266 DHT Node. Read individual values from /temp or /humidity\n\nTemperature: " + String(temperature) + " °C\nHumidity: " + String(humidity) + " %REH";
+  String contents = "ESP8266 DHT Node. Read individual values from /temp or /humidity\n\nTemperature: " + String((int)temperature) + " °C\nHumidity: " + String((int)humidity) + " %REH";
   server.send(200, "text/plain", contents);
 }
 
 void serve_temp() {
-  String contents = "Temperature: " + String(temperature) + " °C";
+  String contents = "Temperature: " + String((int)temperature) + " °C";
   server.send(200, "text/plain", contents);
 }
 
 void serve_humidity() {
-  String contents = "Humidity: " + String(humidity) + " %REH";
+  String contents = "Humidity: " + String((int)humidity) + " %REH";
   server.send(200, "text/plain", contents);
 }
 
@@ -46,6 +46,8 @@ void setup()
   Serial.println("Connecting to WiFi");
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
+    yield();
+    delay(1);
   }
   Serial.println("");
   Serial.print("IP Address of Node: ");
