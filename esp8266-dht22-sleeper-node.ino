@@ -2,10 +2,6 @@
 #include <ESP8266WebServer.h>
 #include <WiFiClient.h>
 #include "DHT.h"
-
-#define DHTPIN 2
-#define WEBSERVER_PORT 80
-#define INTERVAL 5000
 // Don't forget to rename config.example.h to config.h in your project folder
 // and fill in the SSID/password for your WiFi network
 #include "config.h"

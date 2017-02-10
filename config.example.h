@@ -3,3 +3,6 @@
 
 #define SSID      "YOUR_SSID_HERE"
 #define PASSWORD  "YOUR_PASSWORD_HERE"
+#define WEBSERVER_PORT 80
+#define DHTPIN    2
+#define INTERVAL 5000
