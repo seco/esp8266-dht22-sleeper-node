@@ -28,6 +28,8 @@ install:
   - mv config.example.h config.h
   - sleep 3
 script:
+  # Temporary check to break the build
+  - exit 1
   # - "echo $ARDUINO_HOME"
   # - "echo $ARDUINO_LIBS"
   # - "echo $PWD"
@@ -52,4 +54,4 @@ notifications:
       - secure: "HYIPxBbbbx/JOFkMjmKI/oY7sO2TIYbUA/uVcoGg9Y/V9kHxUOiR0qAWJn0aMes9XTQDBuYkB7ZijqSFhpKTs3BIyEgdX97rbWvNaZpo5Z+jbIw+C9cAlC/i4GaWtDx7ICHowUNaGXmLAI7usnxo5MyTmdpuze/XYIfpX4GyCOXOEgxU1wCEf4W/q8JKY6qqVzsKAW2D5HG2Dr1VU4XqNC+4Ml5+qfQSCjYl/YcTNAoaZmS4e2IDepaYQrbU8W1PlM+LU3ssegImrH9tZ9IV8tbSR8SNwSNoMektD0QLNXaoOilBEALP3BQ+AtY2LYErwG39X81RIu0CETHuDQNApORJGPz9Ww1sibtYSaRrg7a4VjMeY3/klnQSHR/yovIxKhpnUx3/qVlALH5ZAHtRsVkNrelwhYb8c+cvox/x1S887/T34b+UbZF/2N90Q9qTtyapg1I1i/bfKwqcO1R+ygvqqlO1igf9jcReEoaALmaCtHmpwj/N9C2PTrt/rYkkbksnpK8le9A3DLLrrWG2e55u5hxf2QwpI3w7ei+EAvtIY5/VHthbiyKP0ollzEh4FrCQymORuZ7cr6I0Rk/ebP8Ubx67uF9EYUF7Iv1/40cbKXcrgKTUDPxUb0ytWSvVbuhbPp79AmocVYzTxtRXcDoJDLePVNXO/d1ZK9SXcHo="
       - secure: "XF5UAI+6IbfN7FqhyjRg1IFn01MI6Jb2qkkDUBrlfx6VCyI5B/mJekYlQVZ29/QPss9JPuGXe/m2+JQnWWqJiR5lP9sd12iJnTX6mijDgqdE5i1pqXfknprUX4keYcycGENOUjRZoZ1y7qMrO3Odrvh4FtfItnlkJ2kIzITVuBvsdYbURv38HjAyCTTNRgQtceLtoRqHQ3ryOMAnHz1XMymteTW68hy67P8uFDrWFiqJo3WGY73cTvPYI9aM6yNyc7QYJyoTnwV+es7D9xYEk2wclVdZlpegVuXzBnHuZzUeLFbEArOrpfDezo8ihWamX6DLa0/H4k4S7rocAC8xnzDufesuILg8aaclrEpn0seruKaefSA46bCDdkve+bA2OFmXqjhAEvyquJDlBRqGBXTav+c5JtaOnItdCIxAxCSzvsFrwh5JhpV7+j9YvFG4FFLdE4HCxbYssatRc8j+7D0nKnmWvCOjVoR3TWi2ffg8wlnXhEuc3ymLPsAHk7zOMIPXBFQ5FEOYx92PngIk+dIViZqfIbRyaPeMSu+Bdrf+fYXXcwLmRV2A7VgqXevt4dVDXmXIUUwbtyVzaaCcZovzEUeUR6PdPZLZ20vy+qF0z6YpDQO1wOBERqzIkLkjdycSkStvUIPjNDHsEdH1pN2IXOegBBjXLm7ZZ6awkM0="
     on_success: change
-    on_failure: change
+    on_failure: always
