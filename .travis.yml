@@ -28,8 +28,6 @@ install:
   - mv config.example.h config.h
   - sleep 3
 script:
-  # Temporary check to break the build
-  - exit 1
   # - "echo $ARDUINO_HOME"
   # - "echo $ARDUINO_LIBS"
   # - "echo $PWD"
