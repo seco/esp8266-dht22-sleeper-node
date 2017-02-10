@@ -3,35 +3,74 @@
 #include <WiFiClient.h>
 #include "DHT.h"
 
+#define DHTPIN 2
+#define WEBSERVER_PORT 80
+#define INTERVAL 5000
 // Don't forget to rename config.example.h to config.h in your project folder
 // and fill in the SSID/password for your WiFi network
 #include "config.h"
 
-#define DHTPIN 2
-
 DHT dht;
+ESP8266WebServer server(WEBSERVER_PORT);
+float temperature;
+float humidity;
+
+unsigned long prevMillis = 0;
+
+void serve_root() {
+  String contents = "ESP8266 DHT Node. Read individual values from /temp or /humidity\n\nTemperature: " + String(temperature) + " °C\nHumidity: " + String(humidity) + " %REH";
+  server.send(200, "text/plain", contents);
+}
+
+void serve_temp() {
+  String contents = "Temperature: " + String(temperature) + " °C";
+  server.send(200, "text/plain", contents);
+}
+
+void serve_humidity() {
+  String contents = "Humidity: " + String(humidity) + " %REH";
+  server.send(200, "text/plain", contents);
+}
+
+void readTemperature() {
+  temperature = dht.getTemperature();
+}
+
+void readHumidity() {
+  humidity = dht.getHumidity();
+}
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println();
-  Serial.println("Status\tHumidity (%)\tTemperature (C)\t(F)");
+  dht.setup(DHTPIN);
 
-  dht.setup(2); // data pin 2
+  WiFi.begin(SSID, PASSWORD);
+  Serial.println("Connecting to WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("IP Address of Node: ");
+  Serial.print(WiFi.localIP());
+
+  server.on("/", serve_root);
+  server.on("/temp", serve_temp);
+  server.on("/humidity", serve_humidity);
+  server.begin();
+
+  Serial.println("HTTP Server started");
 }
 
 void loop()
 {
-  delay(dht.getMinimumSamplingPeriod());
+  server.handleClient();
 
-  float humidity = dht.getHumidity();
-  float temperature = dht.getTemperature();
-
-  Serial.print(dht.getStatusString());
-  Serial.print("\t");
-  Serial.print(humidity, 1);
-  Serial.print("\t\t");
-  Serial.print(temperature, 1);
-  Serial.print("\t\t");
-  Serial.println(dht.toFahrenheit(temperature), 1);
+  unsigned long currentMillis = millis();
+  if (currentMillis - prevMillis >= INTERVAL) {
+    // Perhaps didn't have to be in seperate methods
+    readTemperature();
+    readHumidity();
+  }
 }
