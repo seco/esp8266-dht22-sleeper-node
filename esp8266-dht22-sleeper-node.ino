@@ -9,36 +9,39 @@
 
 DHT dht;
 ESP8266WebServer server(WEBSERVER_PORT);
-float temperature;
-float humidity;
+float temperature = 0;
+float humidity = 0;
 
 unsigned long prevMillis = 0;
 
 void serve_root() {
-  String contents = "ESP8266 DHT Node. Read individual values from /temp or /humidity\n\nTemperature: " + String((int)temperature) + " °C\nHumidity: " + String((int)humidity) + " %REH";
-  server.send(200, "text/plain", contents);
+  String contents = "<h3>ESP8266 DHT Node</h3>";
+  contents += "Read individual values<ul>";
+  contents += "<li><a href=\"/temp\">/temp</a></li>";
+  contents += "<li><a href=\"/humidity\">/humidity</a></li></ul><hr>";
+  contents += "Temperature: " + String(temperature) + " °C<br>";
+  contents += "Humidity: " + String(humidity) + " %REH<br>";
+  server.send(200, "text/html", contents);
 }
 
 void serve_temp() {
-  char buf[12];
-  dtostrf(temperature, 8, 4, buf);
-  String contents = "Temperature: " + String(buf) + " °C";
+  String contents = String(temperature);
   server.send(200, "text/plain", contents);
 }
 
 void serve_humidity() {
-  char buf[12];
-  dtostrf(humidity, 8, 4, buf);
-  String contents = "Humidity: " + String(buf) + " %REH";
+  String contents = String(humidity);
   server.send(200, "text/plain", contents);
 }
 
 void readTemperature() {
   temperature = dht.getTemperature();
+  //dtostrf(temp, 8, 2, temperature);
 }
 
 void readHumidity() {
   humidity = dht.getHumidity();
+  //dtostrf(hum, 8, 2, humidity);
 }
 
 void setup()
