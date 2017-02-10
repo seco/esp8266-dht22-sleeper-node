@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <WiFiClient.h>
@@ -19,12 +20,16 @@ void serve_root() {
 }
 
 void serve_temp() {
-  String contents = "Temperature: " + String((int)temperature) + " °C";
+  char buf[12];
+  dtostrf(temperature, 8, 4, buf);
+  String contents = "Temperature: " + String(buf) + " °C";
   server.send(200, "text/plain", contents);
 }
 
 void serve_humidity() {
-  String contents = "Humidity: " + String((int)humidity) + " %REH";
+  char buf[12];
+  dtostrf(humidity, 8, 4, buf);
+  String contents = "Humidity: " + String(buf) + " %REH";
   server.send(200, "text/plain", contents);
 }
 
@@ -38,9 +43,12 @@ void readHumidity() {
 
 void setup()
 {
+
   Serial.begin(115200);
   Serial.println();
-  dht.setup(DHTPIN);
+  dht.setup(DHTPIN, DHT::DHT22);
+  Serial.println(dht.getMinimumSamplingPeriod());
+  Serial.println(dht.getStatusString());
 
   WiFi.begin(SSID, PASSWORD);
   Serial.println("Connecting to WiFi");
