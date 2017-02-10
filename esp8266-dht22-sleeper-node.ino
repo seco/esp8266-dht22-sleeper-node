@@ -46,8 +46,8 @@ void setup()
   Serial.println("Connecting to WiFi");
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
+    delay(150);
     yield();
-    delay(1);
   }
   Serial.println("");
   Serial.print("IP Address of Node: ");
