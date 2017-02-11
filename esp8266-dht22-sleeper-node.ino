@@ -21,7 +21,7 @@ void serve_root() {
   contents += "<meta charset=\"utf-8\">";
   contents += "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">";
   contents += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
-  contents += "<meta http-equiv=\"refresh\" content=\"" + String((int)(INTERVAL / 4)) + "\">";
+  contents += "<meta http-equiv=\"refresh\" content=\"10\">";
   contents += "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">";
   contents += "<title>DHT22 ESP8266 Node</title>";
   contents += "</head><body>";
@@ -33,7 +33,8 @@ void serve_root() {
   contents += "<h1>ESP8266 DHT22 Node</h1>";
   contents += "</header>";
   contents += "Temperature: " + String(temperature) + " °C<br>";
-  contents += "Humidity: " + String(humidity) + " %REH<br><hr>";
+  contents += "Humidity: " + String(humidity) + " %REH<br><br>";
+  contents += "<span class=\"seconds-ago\"><small><i class=\"glyphicon glyphicon-time\"></i> Last reading: " + String((int)(millis() - prevMillis) / 1000) + " seconds ago.</small></span><hr>";
   contents += "<h3>Read individual values</h3>";
   contents += "<ul><li><a href=\"/temp\">/temp</a></li>";
   contents += "<li><a href=\"/humidity\">/humidity</a></li></ul>";
