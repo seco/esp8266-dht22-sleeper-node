@@ -102,6 +102,7 @@ void loop()
 
   unsigned long currentMillis = millis();
   if (currentMillis - prevMillis >= INTERVAL) {
+    prevMillis = currentMillis;
     // Perhaps didn't have to be in seperate methods
     readTemperature();
     readHumidity();
