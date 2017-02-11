@@ -38,7 +38,7 @@ void serve_root() {
   contents += "</header>";
   contents += "Temperature: " + String(temperature) + " °C<br>";
   contents += "Humidity: " + String(humidity) + " %REH<br><br>";
-  contents += "<span class=\"seconds-ago\"><small><i class=\"glyphicon glyphicon-time\"></i> Last reading: " + millis_to_days_hours_minutes() + " ago.</small></span><hr>";
+  contents += "<span class=\"seconds-ago\"><small><i class=\"glyphicon glyphicon-time\"></i> Last reading: " + millis_to_days_hours_minutes(millis() - prevMillis) + " ago.</small></span><hr>";
   contents += "<h3>Read individual values</h3>";
   contents += "<ul><li><a href=\"/temp\">/temp</a></li>";
   contents += "<li><a href=\"/humidity\">/humidity</a></li></ul>";
