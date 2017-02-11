@@ -15,12 +15,31 @@ float humidity = 0;
 unsigned long prevMillis = 0;
 
 void serve_root() {
-  String contents = "<h3>ESP8266 DHT Node</h3>";
-  contents += "Read individual values<ul>";
-  contents += "<li><a href=\"/temp\">/temp</a></li>";
-  contents += "<li><a href=\"/humidity\">/humidity</a></li></ul><hr>";
+  String contents = "<DOCTYPE html>";
+  contents += "<html>";
+  contents += "<head>";
+  contents += "<meta charset=\"utf-8\">";
+  contents += "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">";
+  contents += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
+  contents += "<meta http-equiv=\"refresh\" content=\"30\">";
+  contents += "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">";
+  contents += "</head><body>";
+  contents += "<div class=\"container\">";
+  contents += "<header class=\"page-header\">";
+  contents += "<div class=\"btn-toolbar pull-right\">";
+  contents += "<button type=\"button\" class=\"btn btn-primary refresh\"><i class=\"glyphicon glyphicon-refresh\"></i></button>";
+  contents += "</div>";
+  contents += "<h1>ESP8266 DHT22 Node</h1>";
+  contents += "</header>";
   contents += "Temperature: " + String(temperature) + " °C<br>";
-  contents += "Humidity: " + String(humidity) + " %REH<br>";
+  contents += "Humidity: " + String(humidity) + " %REH<br><hr>";
+  contents += "<h3>Read individual values</h3>";
+  contents += "<ul><li><a href=\"/temp\">/temp</a></li>";
+  contents += "<li><a href=\"/humidity\">/humidity</a></li></ul>";
+  contents += "</div>";
+  contents += "<script src=\"https://code.jquery.com/jquery-3.1.1.slim.min.js\" integrity=\"sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=\" crossorigin=\"anonymous\"></script>";
+  contents += "<script>$('.refresh').on('click', function(e){ e.preventDefault(); location.reload(true);});</script>";
+  contents += "</body></html>";
   server.send(200, "text/html", contents);
 }
 
