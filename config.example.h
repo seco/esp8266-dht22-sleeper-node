@@ -5,4 +5,5 @@
 #define PASSWORD  "YOUR_PASSWORD_HERE"
 #define WEBSERVER_PORT 80
 #define DHTPIN    2
-#define INTERVAL 5000
+#define INTERVAL 5000 // milliseconds
+#define HTML_REFRESH_RATE 10 // seconds
