@@ -21,8 +21,9 @@ void serve_root() {
   contents += "<meta charset=\"utf-8\">";
   contents += "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">";
   contents += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
-  contents += "<meta http-equiv=\"refresh\" content=\"30\">";
+  contents += "<meta http-equiv=\"refresh\" content=\"" + String((int)(INTERVAL / 4)) + "\">";
   contents += "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">";
+  contents += "<title>DHT22 ESP8266 Node</title>";
   contents += "</head><body>";
   contents += "<div class=\"container\">";
   contents += "<header class=\"page-header\">";
@@ -89,6 +90,10 @@ void setup()
   server.begin();
 
   Serial.println("HTTP Server started");
+
+  readTemperature();
+  readHumidity();
+  delay(10);
 }
 
 void loop()
