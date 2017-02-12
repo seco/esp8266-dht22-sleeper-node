@@ -1,7 +1,5 @@
-#include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <WiFiClient.h>
 #include "DHT.h"
 // Don't forget to rename config.example.h to config.h in your project folder
 // and fill in the SSID/password for your WiFi network
