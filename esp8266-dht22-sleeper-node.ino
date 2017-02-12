@@ -83,11 +83,15 @@ String get_print_digit(byte digit) {
 }
 
 void serve_temp() {
+  // This could be handy if you wanted to poll the current temp remotely
+  readTemperature();
   String contents = String(temperature);
   server.send(200, "text/plain", contents);
 }
 
 void serve_humidity() {
+  // This could be handy if you wanted to poll the current humidity remotely
+  readHumidity();
   String contents = String(humidity);
   server.send(200, "text/plain", contents);
 }
