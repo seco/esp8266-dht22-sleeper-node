@@ -7,6 +7,10 @@
 // and fill in the SSID/password for your WiFi network
 #include "config.h"
 
+#define SECS_PER_MIN 60UL
+#define SECS_PER_HOUR 3600UL
+#define SECS_PER_DAY 86400UL
+
 DHT dht;
 ESP8266WebServer server(WEBSERVER_PORT);
 float temperature = 0;
@@ -21,7 +25,7 @@ void serve_root() {
   contents += "<meta charset=\"utf-8\">";
   contents += "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">";
   contents += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
-  contents += "<meta http-equiv=\"refresh\" content=\"" + String((int)(INTERVAL / 4)) + "\">";
+  contents += "<meta http-equiv=\"refresh\" content=\"" + String(HTML_REFRESH_RATE) + "\">";
   contents += "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">";
   contents += "<title>DHT22 ESP8266 Node</title>";
   contents += "</head><body>";
@@ -33,7 +37,8 @@ void serve_root() {
   contents += "<h1>ESP8266 DHT22 Node</h1>";
   contents += "</header>";
   contents += "Temperature: " + String(temperature) + " °C<br>";
-  contents += "Humidity: " + String(humidity) + " %REH<br><hr>";
+  contents += "Humidity: " + String(humidity) + " %REH<br><br>";
+  contents += "<span class=\"seconds-ago\"><small><i class=\"glyphicon glyphicon-time\"></i> Last reading: " + millis_to_days_hours_minutes(millis() - prevMillis) + " ago.</small></span><hr>";
   contents += "<h3>Read individual values</h3>";
   contents += "<ul><li><a href=\"/temp\">/temp</a></li>";
   contents += "<li><a href=\"/humidity\">/humidity</a></li></ul>";
@@ -42,6 +47,41 @@ void serve_root() {
   contents += "<script>$('.refresh').on('click', function(e){ e.preventDefault(); location.reload(true);});</script>";
   contents += "</body></html>";
   server.send(200, "text/html", contents);
+}
+
+String millis_to_days_hours_minutes(unsigned long ms) {
+  ms /= 1000;
+  int seconds = ms % SECS_PER_MIN;
+  int minutes = (ms / SECS_PER_MIN) % SECS_PER_MIN;
+  int hours = (ms / SECS_PER_DAY) % SECS_PER_HOUR;
+  int days = (ms / SECS_PER_DAY);
+
+  if (ms < SECS_PER_MIN) {
+    return String(seconds) + " seconds";
+  }
+
+  if (ms < SECS_PER_HOUR) {
+    return get_print_digit(minutes) + ":" + get_print_digit(seconds) + " (m:s)";
+  }
+
+  if (ms < SECS_PER_DAY) {
+    return get_print_digit(hours) + ":" + get_print_digit(minutes) + ":" + get_print_digit(seconds) + "(h:m:s)";
+  }
+
+  return String(days) + ":" + get_print_digit(hours) + ":" + get_print_digit(minutes) + ":" + get_print_digit(seconds) + "(d:h:m:s)";
+}
+
+String millis_to_days_hours_minutes() {
+  unsigned long ms = millis();
+  return millis_to_days_hours_minutes(ms);
+}
+
+String get_print_digit(byte digit) {
+  String pre = "";
+  if (digit < 10) {
+    pre = "0";
+  }
+  return pre + String(digit, DEC);
 }
 
 void serve_temp() {
@@ -56,12 +96,10 @@ void serve_humidity() {
 
 void readTemperature() {
   temperature = dht.getTemperature();
-  //dtostrf(temp, 8, 2, temperature);
 }
 
 void readHumidity() {
   humidity = dht.getHumidity();
-  //dtostrf(hum, 8, 2, humidity);
 }
 
 void setup()
@@ -102,6 +140,7 @@ void loop()
 
   unsigned long currentMillis = millis();
   if (currentMillis - prevMillis >= INTERVAL) {
+    prevMillis = currentMillis;
     // Perhaps didn't have to be in seperate methods
     readTemperature();
     readHumidity();
