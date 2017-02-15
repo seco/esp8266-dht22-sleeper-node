@@ -17,7 +17,7 @@ float humidity = 0;
 unsigned long prevMillis = 0;
 
 void serve_root() {
-  String contents = "<DOCTYPE html>";
+  String contents = "<!DOCTYPE html>";
   contents += "<html>";
   contents += "<head>";
   contents += "<meta charset=\"utf-8\">";
