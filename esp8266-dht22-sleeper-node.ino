@@ -1,7 +1,5 @@
-#include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <WiFiClient.h>
 #include "DHT.h"
 // Don't forget to rename config.example.h to config.h in your project folder
 // and fill in the SSID/password for your WiFi network
@@ -19,7 +17,7 @@ float humidity = 0;
 unsigned long prevMillis = 0;
 
 void serve_root() {
-  String contents = "<DOCTYPE html>";
+  String contents = "<!DOCTYPE html>";
   contents += "<html>";
   contents += "<head>";
   contents += "<meta charset=\"utf-8\">";
@@ -85,11 +83,15 @@ String get_print_digit(byte digit) {
 }
 
 void serve_temp() {
+  // This could be handy if you wanted to poll the current temp remotely
+  readTemperature();
   String contents = String(temperature);
   server.send(200, "text/plain", contents);
 }
 
 void serve_humidity() {
+  // This could be handy if you wanted to poll the current humidity remotely
+  readHumidity();
   String contents = String(humidity);
   server.send(200, "text/plain", contents);
 }
