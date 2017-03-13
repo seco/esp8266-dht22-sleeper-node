@@ -1,0 +1,52 @@
+Sensors: 
+
+- Temp - Hum sensor DHT22 
+- Deur / Raam, open dicht sensor
+- weer station, temp, humidity, wind sterkte en richting, licht intensiteit
+- deurbel
+- wasmachine
+- droger
+- elektra meter
+- gas meter
+- water meter
+- Rook / CO Melder
+
+Acuatoren:
+
+- Gordijnen auto open / dicht
+- jaloezien auto open / dicht
+- lichten aan / uit
+- badkamer ventilator
+
+Architecture:
+
+- sensoren publish to mqtt broker
+- acuatoren subscriben to logic topic
+- node-red subs to topics
+- incoming messages on node-red to db (mongo?)
+- bootstrap UI haalt data uit db
+
+Plan:
+
+Step 1:
+- setup flow
+ - setup broker
+ - setup DB
+ - setup node-red to save mqtt message to DB
+ - setup simpel arduino mqtt sensor to publish (simulated) messages
+- create UI to display messages
+
+Step 2:
+- Create temp / hum sensor
+ - dht 22 sensor on esp
+ - sensor sleeps
+ - once a hour awakes
+ - connect to wifi
+ - wait 2 sec for first measuring
+ - measure 10 times with 2 sec interfall
+ - take the average and send to mqtt broker
+ - go back to sleep
+- make visible in UI
+
+Step 3: 
+??
